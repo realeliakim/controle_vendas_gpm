@@ -1,0 +1,21 @@
+{
+    "The password field must be at least 8 characters.": "O campo password precisar ter pelo menos 8 caracteres.",
+    "Rule or term not found": "Termo ou regulamento não localizado ",
+    "Homepage not found": "Home page não localizada",
+    "(and :count more error)": "(e mais :count erro)",
+    "(and :count more errors)": "(e mais :count erros)",
+    "Training already completed": "Treinamento já finalizado",
+    "Max tries exceeded": "Máximo de tentativas excedidas",
+    "Term accepted successfully": "Termo aceito com sucesso",
+    "Not Enought Answers": "Quantidade de respostas insuficientes",
+    "Questionnaire already answered": "Questionário já respodido",
+    "The :attribute field must contain at least one letter.": "O campo :attribute deve ter pelo menos uma letra.",
+    "The :attribute field must contain at least one number.": "O campo :attribute deve ter pelo menos um número.",
+    "The :attribute field must contain at least one symbol.": "O campo :attribute deve ter pelo menos um caractere especial.",
+    "The :attribute field must contain at least one uppercase and one lowercase letter.": "O campo :attribute deve ter pelo menos um caractere maiúsculo e um minúsculo.",
+    "Please check the imported file, it's empty.": "Por favor, verifique o arquivo importado, ele encontra-se vazio.",
+    "Please check the imported file, as the data is not the same as requested.": "Por favor, verifique o arquivo importado, dados divergentes do solicitado.",
+    "Goal": "Meta",
+    "Achieved": "Alcançado",
+    "The items in the file have been previously recorded.": "Os itens no arquivo já foram registrados antes."
+}

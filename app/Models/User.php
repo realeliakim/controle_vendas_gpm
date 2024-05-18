@@ -3,13 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Scopes\Filterable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -31,6 +33,37 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+    /**
+     * The attributes that are searchables.
+     *
+     * @var array<int, string>
+     */
+    protected $searchable = [
+        'name',
+        'email',
+    ];
+
+    /**
+     * The attributes that are filterables.
+     *
+     * @var array<int, string>
+     */
+    protected $filterable = [
+        'name',
+        'email',
+    ];
+
+    /**
+     * The attributes that are orderables.
+     *
+     * @var array<int, string>
+     */
+    protected $orderable = [
+        'name',
+    ];
+
 
     /**
      * Get the attributes that should be cast.
