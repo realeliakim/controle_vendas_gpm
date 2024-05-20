@@ -5,9 +5,11 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Models\Scopes\Filterable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -21,6 +23,8 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'cpf',
+        'user_type_id',
         'password',
     ];
 
@@ -43,6 +47,8 @@ class User extends Authenticatable
     protected $searchable = [
         'name',
         'email',
+        'cpf',
+        'user_type_id',
     ];
 
     /**
@@ -53,6 +59,8 @@ class User extends Authenticatable
     protected $filterable = [
         'name',
         'email',
+        'cpf',
+        'user_type_id',
     ];
 
     /**
@@ -77,4 +85,23 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the user_type from user
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user_type(): BelongsTo
+    {
+        return $this->belongsTo(UserType::class);
+    }
+
+    /**
+     * Get the order from user
+     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders(): HasMany
+    {
+        return $this->hasMany(Order::class);
+    }
+
 }

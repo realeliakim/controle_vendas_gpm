@@ -24,30 +24,49 @@
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
-                            <th class="w5 center" scope="col">#</th>
-                            <th class="w30 center" scope="col">NOME</th>
-                            <th class="w15 center" scope="col">EMAIL</th>
-                            <th class="w15 center" scope="col">CPF</th>
-                            <th class="w15 center" scope="col">TIPO</th>
-                            <th class="w20 center" scope="col">DATA DE CRIAÇÃO</th>
-                            <th class="w30 center" scope="col">AÇÕES</th>
+                                <th class="text-center">#</th>
+                                <th class="w-20">NOME</th>
+                                <th class="w-15">EMAIL</th>
+                                <th class="w-15">CPF</th>
+                                <th class="w-10 text-center">TIPO</th>
+                                <th class="w-15 text-center">DATA DE CRIAÇÃO</th>
+                                <th class="w-20 text-center">AÇÕES</th>
                             </tr>
                         </thead>
                         <tbody>
 
-                        @foreach ($users as $user)
+                        @foreach ($users['data'] as $user)
                             <tr>
-                            <td class="center" scope="row">{{$user->id}}</td>
-                            <td class="center" scope="row">{{$user->name}}</td>
-                            <td class="center" scope="row">{{$user->email}}</td>
-                            <td class="center" scope="row">{{$user->created_at}}</td>
-
+                                <td class="text-center">{{$user->id}}</td>
+                                <td>{{$user->name}}</td>
+                                <td>{{$user->email}}</td>
+                                <td>{{$user->cpf}}</td>
+                                <td class="text-center">{{$user->user_type->type}}</td>
+                                <td class="text-center">{{$user->created_at}}</td>
+                                <td class="text-center">
+                                    <a href="{{ route('users.view', $user->id) }}" class="w45 btn btn-primary">
+                                        Editar
+                                    </a>
+                                    <a href="{{ route('users.delete', $user->id) }}" class="w45 btn btn-danger">
+                                        Deletar
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-
                 </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        @foreach ($users['links'] as $link)
+                            <li class="page-item">
+                                <a class="page-link" href="{{$link['url']}}">
+                                    {{ html_entity_decode($link['label']); }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>

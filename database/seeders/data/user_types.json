@@ -1,0 +1,18 @@
+[
+    {
+        "type": "Admin",
+        "slug": "admin"
+    },
+    {
+        "type": "Vendedor",
+        "slug": "vendedor"
+    },
+    {
+        "type": "Gerente",
+        "slug": "gerente"
+    },
+    {
+        "type": "Cliente",
+        "slug": "cliente"
+    }
+]

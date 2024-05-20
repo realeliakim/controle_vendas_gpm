@@ -1,0 +1,107 @@
+[
+    {
+        "name": "Admin",
+        "email": "admin@gmail.com",
+        "cpf": "423.198.520-00",
+        "user_type_id": 1,
+        "password": "12345678"
+    },
+    {
+        "name": "Francisco das Chagas",
+        "email": "francisco@gmail.com",
+        "cpf": "870.663.900-32",
+        "user_type_id": 2,
+        "password": "12345678"
+    },
+    {
+        "name": "Maria das Dores",
+        "email": "maria@gmail.com",
+        "cpf": "786.680.620-93",
+        "user_type_id": 2,
+        "password": "12345678"
+    },
+    {
+        "name": "José de Arimateia",
+        "email": "jose@gmail.com",
+        "cpf": "453.229.590-41",
+        "user_type_id": 4,
+        "password": "12345678"
+    },
+    {
+        "name": "Boanerges Filho",
+        "email": "boanerges@gmail.com",
+        "cpf": "176.413.070-78",
+        "user_type_id": 3,
+        "password": "12345678"
+    },
+    {
+        "name": "Serena Joy",
+        "email": "serena@gmail.com",
+        "cpf": "429.059.820-04",
+        "user_type_id": 4,
+        "password": "12345678"
+    },
+    {
+        "name": "Laura Bethany",
+        "email": "laura@gmail.com",
+        "cpf": "301.044.170-30",
+        "user_type_id": 2,
+        "password": "12345678"
+    },
+    {
+        "name": "Eliakim Aquino",
+        "email": "eliakim.aquino@gmail.com",
+        "cpf": "635.034.200-37",
+        "user_type_id": 1,
+        "password": "12345678"
+    },
+    {
+        "name": "Magno Cabral",
+        "email": "cabral@gmail.com",
+        "cpf": "466.912.190-15",
+        "user_type_id": 4,
+        "password": "12345678"
+    },
+    {
+        "name": "Bruno Padilha",
+        "email": "bruno@gmail.com",
+        "cpf": "475.565.270-77",
+        "user_type_id": 2,
+        "password": "12345678"
+    },
+    {
+        "name": "Samara Salene",
+        "email": "samara@gmail.com",
+        "cpf": "841.773.840-11",
+        "user_type_id": 4,
+        "password": "12345678"
+    },
+    {
+        "name": "Dayane Martins",
+        "email": "dayane@gmail.com",
+        "cpf": "155.294.680-04",
+        "user_type_id": 4,
+        "password": "12345678"
+    },
+    {
+        "name": "Hitalo Oliveira",
+        "email": "hitalo@gmail.com",
+        "cpf": "489.935.890-38",
+        "user_type_id": 2,
+        "password": "12345678"
+    },
+    {
+        "name": "Petrus Nogueira",
+        "email": "petrus@gmail.com",
+        "cpf": "385.726.100-57",
+        "user_type_id": 1,
+        "password": "12345678"
+    },
+    {
+        "name": "Roberto Franklin",
+        "email": "roberto@gmail.com",
+        "cpf": "502.241.060-58",
+        "user_type_id": 4,
+        "password": "12345678"
+    }
+]

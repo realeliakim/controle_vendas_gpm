@@ -14,6 +14,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/users', [UsersController::class, 'index'])->name('users');
 Route::get('/users/create', [UsersController::class, 'create'])->name('users.create');
+Route::post('/users/store', [UsersController::class, 'create'])->name('users.store');
+Route::get('/users/view/{user}', [UsersController::class, 'create'])->name('users.view');
+Route::put('/users/update/{user}', [UsersController::class, 'create'])->name('users.update');
+Route::delete('/users/delete/{user}', [UsersController::class, 'create'])->name('users.delete');
 /*
 Route::prefix('/users')
     ->controller(UsersController::class)

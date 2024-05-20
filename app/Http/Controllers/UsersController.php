@@ -27,15 +27,13 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        $data = UserResource::collection(
+        $users = UserResource::collection(
                     User::searchOrFilter(
                         $request->only([
                             'search',
                             'order_by',
-                        ])
-                    )->get()
+                        ]))->orderBy('id', 'asc')->get()
                 )->paginate(6);
-        $users = $data['data'];
         return view('users.index', compact('users'));
     }
 
