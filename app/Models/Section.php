@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class UserType extends Model
+class Section extends Model
 {
     use HasFactory, Notifiable;
 
@@ -16,7 +16,7 @@ class UserType extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'type',
+        'name',
     ];
 
 }

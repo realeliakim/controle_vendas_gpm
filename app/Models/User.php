@@ -25,6 +25,7 @@ class User extends Authenticatable
         'email',
         'cpf',
         'user_type_id',
+        'section_id',
         'password',
     ];
 
@@ -49,6 +50,7 @@ class User extends Authenticatable
         'email',
         'cpf',
         'user_type_id',
+        'section_id',
     ];
 
     /**
@@ -61,6 +63,7 @@ class User extends Authenticatable
         'email',
         'cpf',
         'user_type_id',
+        'section_id',
     ];
 
     /**
@@ -96,12 +99,11 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the order from user
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
+     * Get the section from user
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function orders(): HasMany
+    public function section(): BelongsTo
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsTo(Section::class);
     }
-
 }

@@ -20,7 +20,6 @@ class UserTypeSeeder extends Seeder
             foreach ($types as $type) {
                 UserType::create([
                     'type' => $type['type'],
-                    'slug' => $type['slug'],
                 ]);
                 $bar->advance();
             }

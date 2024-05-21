@@ -1,74 +1,66 @@
 [
     {
         "name": "Geladeira",
-        "slug": "geladeira",
         "description": "Geladeira de alta qualidade fabricado para atender aos clientes mais exigentes",
-        "sku": "GELCONGELPRA",
         "price": "2999.99",
-        "in-stock": 5,
-        "available": true
+        "stock": 5,
+        "available": true,
+        "section_id": 3
     },
     {
         "name": "Fogão",
-        "slug": "fogao",
         "description": "Fogão de alta qualidade fabricado para atender aos clientes mais exigentes",
-        "sku": "FOGESMFOGBRA",
         "price": "699.99",
-        "in-stock": 5,
-        "available": true
+        "stock": 5,
+        "available": true,
+        "section_id": 3
     },
     {
         "name": "Gelagua",
-        "slug": "gelagua",
         "description": "Gelagua de alta qualidade fabricado para atender aos clientes mais exigentes",
-        "sku": "GELESMGELBRA",
         "price": "549.99",
-        "in-stock": 3,
-        "available": true
+        "stock": 3,
+        "available": true,
+        "section_id": 3
     },
     {
         "name": "Roteador",
-        "slug": "roteador",
         "description": "Roteador de alta qualidade fabricado para atender aos clientes mais exigentes",
-        "sku": "ROTINTROTPRE",
         "price": "359.99",
-        "in-stock": 6,
-        "available": true
+        "stock": 6,
+        "available": true,
+        "section_id": 2
     },
     {
         "name": "Computador",
-        "slug": "computador",
         "description": "Computador de alta qualidade fabricado para atender aos clientes mais exigentes",
-        "sku": "COMASUTEC150",
         "price": "2999.99",
-        "in-stock": 2,
-        "available": true
+        "stock": 2,
+        "available": true,
+        "section_id": 2
     },
     {
-        "name": "Capacete",
-        "slug": "capacete",
+        "name": "Tênis Nike",
         "description": "Capacete de alta qualidade fabricado para atender aos clientes mais exigentes",
-        "sku": "CAPPEESEGPRE",
         "price": "199.99",
-        "in-stock": 1,
-        "available": true
+        "stock": 1,
+        "available": true,
+        "section_id": 5
     },
     {
         "name": "Câmera de Segurança",
-        "slug": "camera-de-seguranca",
         "description": "Câmera de segurança de alta qualidade fabricado para atender aos clientes mais exigentes",
-        "sku": "CAMPHISEGBRA",
         "price": "179.99",
-        "in-stock": 4,
-        "available": true
+        "stock": 4,
+        "available": true,
+        "section_id": 2
     },
     {
         "name": "Caixa de Som Portátil",
-        "slug": "caixa-som-portatil",
         "description": "Caixa de som portátil de alta qualidade fabricado para atender aos clientes mais exigentes",
-        "sku": "CAIJBLELEPRE",
         "price": "899.99",
-        "in-stock": 8,
-        "available": true
+        "stock": 8,
+        "available": true,
+        "section_id": 2
     }
 ]

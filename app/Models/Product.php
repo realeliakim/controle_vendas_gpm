@@ -6,6 +6,7 @@ use App\Models\Scopes\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Product extends Model
@@ -19,12 +20,11 @@ class Product extends Model
      */
     protected $fillable = [
         'name',
-        'slug',
         'description',
-        'sku',
         'price',
-        'in-stock',
+        'stock',
         'available',
+        'section_id',
     ];
 
 
@@ -37,6 +37,7 @@ class Product extends Model
         'name',
         'sku',
         'price',
+        'section_id',
     ];
 
 
@@ -49,17 +50,15 @@ class Product extends Model
         'name',
         'sku',
         'price',
+        'section_id',
     ];
 
-
     /**
-    * Get the orders from product
-    * @return Illuminate\Database\Eloquent\Relations\HasMany
-    */
-    public function orders(): HasMany
+     * Get the section from product
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function section(): BelongsTo
     {
-        return $this->hasMany(Order::class);
+        return $this->belongsTo(Section::class);
     }
-
-
 }

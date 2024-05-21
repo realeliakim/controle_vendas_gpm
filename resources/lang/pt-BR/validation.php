@@ -8,4 +8,5 @@ return [
         'array' => 'O campo ":attribute" deve ter pelo menos :min itens.',
     ],
     'unique' => 'O campo ":attribute" já está sendo utilizado.',
+    'confirmed' => 'O campo ":attribute" não corresponde',
 ];

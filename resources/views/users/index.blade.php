@@ -8,7 +8,7 @@
                 <div class="card-header d-flex justify-content-between">
                     <div>{{ __('Usuários') }}</div>
                     <div>
-                        <a href="{{ route('users.create') }}" class="size-100 btn btn-success">
+                        <a href="{{ route('users.user_form') }}" class="size-100 btn btn-success">
                             + Criar Usuário
                         </a>
                     </div>
@@ -27,10 +27,11 @@
                                 <th class="text-center">#</th>
                                 <th class="w-20">NOME</th>
                                 <th class="w-15">EMAIL</th>
-                                <th class="w-15">CPF</th>
+                                <th class="w-10">CPF</th>
                                 <th class="w-10 text-center">TIPO</th>
-                                <th class="w-15 text-center">DATA DE CRIAÇÃO</th>
-                                <th class="w-20 text-center">AÇÕES</th>
+                                <th class="w-15">DEPARTAMENTO</th>
+                                <th class="w-10 text-center">DATA DE CRIAÇÃO</th>
+                                <th class="w-15 text-center">AÇÕES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,14 +43,22 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->cpf}}</td>
                                 <td class="text-center">{{$user->user_type->type}}</td>
+                                <td class="text-center">{{$user->section->name}}</td>
                                 <td class="text-center">{{$user->created_at}}</td>
-                                <td class="text-center">
-                                    <a href="{{ route('users.view', $user->id) }}" class="w45 btn btn-primary">
-                                        Editar
-                                    </a>
-                                    <a href="{{ route('users.delete', $user->id) }}" class="w45 btn btn-danger">
-                                        Deletar
-                                    </a>
+                                <td class="d-flex justify-content-center">
+                                    <div class="w45">
+                                        <a href="#" class="w-100 btn btn-primary">
+                                            Editar
+                                        </a>
+                                    </div>
+                                    &nbsp;
+                                        <form action="{{ route('users.delete', $user->id)}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="w-100 action btn-delete btn btn-danger text-light" onclick="confirmDelete()">
+                                                Excluir
+                                            </button>
+                                        </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -72,3 +81,11 @@
     </div>
 </div>
 @endsection
+
+
+
+<script>
+function confirmDelete() {
+  confirm("Deseja realmente deletar usuário");
+}
+</script>

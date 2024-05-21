@@ -23,6 +23,7 @@ class UserSeeder extends Seeder
                     'email'        => $user['email'],
                     'cpf'          => $user['cpf'],
                     'user_type_id' => $user['user_type_id'],
+                    'section_id'   => $user['section_id'],
                     'password'     => $user['password'],
                 ]);
                 $bar->advance();

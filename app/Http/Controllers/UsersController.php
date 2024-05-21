@@ -6,7 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Resources\UserResource;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateUserRequest;
+use App\Models\Section;
+use App\Models\UserType;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UsersController extends Controller
 {
@@ -21,7 +24,7 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the users list.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -37,7 +40,59 @@ class UsersController extends Controller
         return view('users.index', compact('users'));
     }
 
-    public function create(){
-      return view('users.create');
+    /**
+     * Show the user creation form.
+     *
+     */
+    public function showCreateForm()
+    {
+        return view('users.user_form');
+    }
+
+    /**
+     * @param App\Http\Requests\CreateUserRequest $request
+     * @return Illuminate\Http\JsonResponse
+     */
+    public function create(CreateUserRequest $request): JsonResponse
+    {
+        try {
+            $type = UserType::find($request->user_type_id);
+            $section = Section::find($request->section_id);
+            if (!$type) {
+                throw new ModelNotFoundException('Id #'.$request->user_type_id.' não encontrado', 404);
+            }
+            if (!$section) {
+                throw new ModelNotFoundException('Id #'.$request->section_id.' não encontrado', 404);
+            }
+            $user = User::create($request->all());
+            return redirect()->route('users.index')->with('success', 'Usuário '. $user->name .' criado com sucesso');
+        } catch (\Exception $e) {
+            $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
+            return response()->apiException($e->getMessage(), $status_code);
+        }
+    }
+
+
+    /**
+    * Delete homepage block type.
+    *
+    * @param  int $user_id
+    * @return Illuminate\Http\JsonResponse
+    */
+    public function delete(int $user_id): JsonResponse
+    {
+        try {
+            $user = User::find($user_id);
+
+            if (!$user) {
+                throw new ModelNotFoundException('Usuário com id #'.$user_id. ' não encontrado', 404);
+            }
+
+            $user->delete();
+            return redirect()->route('users.index')->with('success', 'Usuário '. $user_id .' deletado com sucesso');
+        } catch (\Exception $e) {
+            $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
+            return response()->apiException($e->getMessage(), $status_code);
+        }
     }
 }

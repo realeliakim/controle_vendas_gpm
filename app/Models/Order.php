@@ -20,7 +20,8 @@ class Order extends Model
     protected $fillable = [
         'product_id',
         'user_id',
-        'qnty',
+        'product_qnty',
+        'price_unit',
         'total',
     ];
 
@@ -31,9 +32,8 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $searchable = [
-        'name',
-        'sku',
-        'price',
+        'user_id.name',
+        'product_id.name',
     ];
 
 
@@ -43,9 +43,8 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $filterable = [
-        'name',
-        'sku',
-        'price',
+        'user_id.name',
+        'product_id.name',
     ];
 
 

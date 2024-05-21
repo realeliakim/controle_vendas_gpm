@@ -21,7 +21,8 @@ return new class extends Migration
                   ->references('id')
                   ->on('users')
                   ->onDelete('cascade');
-            $table->integer('qnty');
+            $table->integer('product_qnty');
+            $table->float('price_unit');
             $table->float('total');
             $table->timestamps();
         });

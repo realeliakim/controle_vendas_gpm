@@ -31,6 +31,14 @@ class AppServiceProvider extends ServiceProvider
             ], $code);
         });
 
+        // Set the default response for API exceptions
+        Response::macro('apiException', function (string|array $error, int $code = 400) {
+            return Response::json([
+                'status' => false,
+                'error' => $error
+            ], ($code > 500 || $code < 200) ? 500 : $code);
+        });
+
 
         Collection::macro('paginate', function (int $perPage = 5, string $message = null) {
             $paginator = CollectionHelper::paginate($this, $perPage)->toArray();

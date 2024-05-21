@@ -20,6 +20,10 @@ return new class extends Migration
                   ->references('id')
                   ->on('user_types')
                   ->onDelete('cascade');
+            $table->foreignId('section_id')
+                  ->references('id')
+                  ->on('sections')
+                  ->onDelete('cascade');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

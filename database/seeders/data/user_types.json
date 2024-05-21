@@ -1,18 +1,8 @@
 [
     {
-        "type": "Admin",
-        "slug": "admin"
+        "type": "Admin"
     },
     {
-        "type": "Vendedor",
-        "slug": "vendedor"
-    },
-    {
-        "type": "Gerente",
-        "slug": "gerente"
-    },
-    {
-        "type": "Cliente",
-        "slug": "cliente"
+        "type": "Vendedor"
     }
 ]

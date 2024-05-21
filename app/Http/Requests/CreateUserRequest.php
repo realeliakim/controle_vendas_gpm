@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\Cpf;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateUserRequest extends FormRequest
@@ -11,7 +12,7 @@ class CreateUserRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,9 +23,12 @@ class CreateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'      => ['required', 'string', 'max:250'],
-            'email'     => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password'  => ['required', 'string', 'min:8', 'confirmed'],
+            'name'          => ['required', 'string', 'max:200'],
+            'email'         => ['required', 'string', 'email', 'max:100', 'unique:users,email'],
+            'cpf'           => ['required', 'string', 'max:14', 'unique:users,cpf', new Cpf],
+            'user_type_id'  => ['required', 'integer'],
+            'section_id'    => ['required', 'integer'],
+            'password'      => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 }
