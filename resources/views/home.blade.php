@@ -21,7 +21,9 @@
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <button type="button" class="size-100 btn btn-lg btn-outline-secondary">Produtos</button>
+                                <a href="{{ url('/products') }}" class="size-100 btn btn-lg btn-outline-secondary">
+                                    Produtos
+                                </a>
                             </div>
                             <div class="col-md-3">
                                 <button type="button" class="size-100 btn btn-lg btn-outline-success">Venda</button>

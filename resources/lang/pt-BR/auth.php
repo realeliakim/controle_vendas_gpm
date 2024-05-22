@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'failed' => 'Utilizador ou password errados.',
+    'failed' => 'Email ou senha errados.',
     'throttle' => 'Muitas tentativas falhadas. Tente novamente daqui a :seconds segundos.',
     'password' => 'A senha fornecida está incorreta.',
     'The password field must be at least 8 characters.' => 'O campo password precisar ter pelo menos 8 caracteres.',

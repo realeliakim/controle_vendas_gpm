@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('description');
             $table->float('price');
             $table->integer('stock');
-            $table->boolean('available');
+            $table->boolean('available')->default(true);
             $table->foreignId('section_id')
                 ->references('id')
                 ->on('sections')
