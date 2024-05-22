@@ -8,7 +8,7 @@ use App\Models\UserType;
 use App\Rules\ModelExists;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateUserRequest extends FormRequest
+class UpdateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,11 +27,10 @@ class CreateUserRequest extends FormRequest
     {
         return [
             'name'          => ['required', 'string', 'max:200'],
-            'email'         => ['required', 'string', 'email', 'max:100', 'unique:users,email'],
-            'cpf'           => ['required', 'string', 'max:14', 'unique:users,cpf', new Cpf],
+            'email'         => ['required', 'string', 'email', 'max:100'],
+            'cpf'           => ['required', 'string', 'max:14', new Cpf],
             'user_type_id'  => ['required', 'integer', new ModelExists(UserType::class, 'id')],
             'section_id'    => ['required', 'integer', new ModelExists(Section::class, 'id')],
-            'password'      => ['required', 'string', 'min:6', 'confirmed'],
         ];
     }
 }

@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\CreateUserRequest;
-use App\Models\Section;
-use App\Models\UserType;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UsersController extends Controller
@@ -49,37 +47,73 @@ class UsersController extends Controller
         return view('users.user_form');
     }
 
+
     /**
+     * Create an user
+     *
      * @param App\Http\Requests\CreateUserRequest $request
-     * @return Illuminate\Http\JsonResponse
      */
-    public function create(CreateUserRequest $request): JsonResponse
+    public function create(CreateUserRequest $request)
     {
         try {
-            $type = UserType::find($request->user_type_id);
-            $section = Section::find($request->section_id);
-            if (!$type) {
-                throw new ModelNotFoundException('Id #'.$request->user_type_id.' não encontrado', 404);
-            }
-            if (!$section) {
-                throw new ModelNotFoundException('Id #'.$request->section_id.' não encontrado', 404);
-            }
             $user = User::create($request->all());
-            return redirect()->route('users.index')->with('success', 'Usuário '. $user->name .' criado com sucesso');
+            return redirect()->to(route('users'))->with('success', 'Usuário '. $user->name .' criado com sucesso');
         } catch (\Exception $e) {
             $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
             return response()->apiException($e->getMessage(), $status_code);
         }
     }
 
+    /**
+    * View an user.
+    *
+    * @param int $user_id
+    */
+    public function view(int $user_id)
+    {
+        try {
+            $user = User::find($user_id);
+
+            if (!$user) {
+                throw new ModelNotFoundException('Usuário não encontrado', 404);
+            }
+
+            $user = UserResource::make($user);
+            return view('users.view', compact('user'));
+        } catch (\Exception $e) {
+            $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
+            return response()->apiException($e->getMessage(), $status_code);
+        }
+    }
 
     /**
-    * Delete homepage block type.
+    * Update an user.
+    * @param   int  $user_id
+    * @param	 App\Http\Requests\Admin\CreateSaleRequest	$request
+    */
+    public function update(UpdateUserRequest $request, int $user_id)
+    {
+        try {
+            $user = User::find($user_id);
+
+            if (!$user) {
+                throw new ModelNotFoundException('Usuário não encontrado', 404);
+            }
+
+            $user->update($request->validated());
+            return redirect()->to(route('users'))->with('success', 'Usuário '. $user->name .' atualizado com sucesso');
+        } catch (\Exception $e) {
+            $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
+            return response()->apiException($e->getMessage(), $status_code);
+        }
+    }
+
+    /**
+    * Delete an user.
     *
     * @param  int $user_id
-    * @return Illuminate\Http\JsonResponse
     */
-    public function delete(int $user_id): JsonResponse
+    public function delete(int $user_id)
     {
         try {
             $user = User::find($user_id);
@@ -89,7 +123,7 @@ class UsersController extends Controller
             }
 
             $user->delete();
-            return redirect()->route('users.index')->with('success', 'Usuário '. $user_id .' deletado com sucesso');
+            return redirect()->to(route('users'))->with('success', 'Usuário '. $user_id .' deletado com sucesso');
         } catch (\Exception $e) {
             $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
             return response()->apiException($e->getMessage(), $status_code);
