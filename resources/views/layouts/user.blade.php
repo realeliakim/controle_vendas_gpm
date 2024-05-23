@@ -18,6 +18,7 @@
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <script src="{{ asset('js/type.js') }}" defer></script>
     <script src="{{ asset('js/section.js') }}" defer></script>
+    <script src="{{ asset('js/main.js') }}" defer></script>
 </head>
 <body>
     <div id="app">

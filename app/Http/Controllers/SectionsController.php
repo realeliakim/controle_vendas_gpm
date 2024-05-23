@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Section;
-use App\Models\UserType;
 use Illuminate\Http\Request;
 use App\Http\Resources\SectionResource;
-use App\Http\Resources\UserTypeResource;
 
 class SectionsController extends Controller
 {

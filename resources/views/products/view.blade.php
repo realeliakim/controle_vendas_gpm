@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="price" class="form-label">Preço<span class="red">*</span>: </label>
-                            <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $product->price }}" required autocomplete="price" autofocus>
+                            <input id="price" type="text" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ $product->price_format($product->price) }}" required autocomplete="price" autofocus>
                             @error('price')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
