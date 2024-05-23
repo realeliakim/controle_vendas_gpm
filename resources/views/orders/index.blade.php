@@ -1,100 +1,104 @@
 @extends('layouts.home')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center p-4">
-        <div class="left col-md-8">
-            <h3>Lista de produtos</h3>
-            <div class="pt-4 row mb-3">
-                @foreach ($products as $product)
-                <div class="p-4 col-md-4 text-center shadow-sm border-top border-bottom border-end border-1">
-                    <img src="{{ asset('assets/images/produto.png') }}" class="rounded w-75 shadow-lg" alt="produto">
-                    <div class="{{ $product->id }}">
-                        <div class="fs-4">{{ $product->name }}</div>
-                        <div class="fs-5 pb-2">R$ {{ number_format($product->price, 2, ',', '.') }}</div>
-                        <input type="hidden" value="{{ $product->stock }}" id="{{ $product->name }}">
-                        <input type="hidden" value="0" id="counter_{{ $product->id }}">
-                        <input type="button" id="{{ $product->id }}"
-                               class="w-75 btn btn-success fs-5"
-                               value="Comprar"
-                               onclick="cart('{{$product->id}}','{{$product->name}}','{{$product->price}}','{{$product->stock}}')"
-                        >
+<div class="pt-4 container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card mb-3">
+                <div class="card-header d-flex justify-content-between">
+                    <div>{{ __('Pedidos') }}</div>
+                    <div>
+                        @if( Auth::user()->user_type_id !== 3 )
+                            <a href="{{ route('orders.show_store') }}" class="size-100 btn btn-success">
+                                + Realizar Venda
+                            </a>
+                        @endif
                     </div>
                 </div>
-                @endforeach
-            </div>
-        </div>
-        <div class="right col-md-4 text-center shadow p-3 mb-5 rounded" id="cart" style="display: block; background-color: #E0E0D2">
-            <div class="pt-5 row mb-3">
-            <h4>Detalhes do pedido</h4>
-                <div class="ps-4 pt-5 row mb-3">
-                    <form method="POST" action="{{ route('users.create') }}">
-                        <div class="form-group row">
-                            @foreach ($products as $product)
-                            <div id="item_{{$product->id}}">
-                            </div>
-                            @endforeach
-                            <input type="hidden" id="subtotal" value="0">
+                <div class="card-body">
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
                         </div>
-                    </form>
-                    <div id="total">
-                    </div>
+                    @endif
+                    @if (count($orders['data']) > 0 )
+                    @if( Auth::user()->user_type_id === 1 )
+                        <form method="POST" action="{{ route('users.create') }}" class="pt-4 pb-4">
+                            @csrf
+                            <div class="form-group row">
+                                <div class="row col-md-6 mb-3">
+                                    <div class="col-md-8 mb-3">
+                                        <select class="form-select" id="search" name="user_id">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <button type="submit" class="btn btn-primary w100">Filtar Vendedor</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    @endif
+
+                    <table class="table table-striped table-hover table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="w10 text-center">ID PEDIDO</th>
+                                <th class="w20">VENDEDOR</th>
+                                <th class="w20">CLIENTE</th>
+                                <th class="w20 text-center">DATA DA VENDA</th>
+                                <th class="w25 text-center">AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($orders['data'] as $order)
+                            <tr>
+                                <td class="text-center">{{$order->id}}</td>
+                                <td>{{ $order->saler->name}}</td>
+                                <td>{{ $order->customer->name }}</td>
+                                <td class="text-center">{{$order->created_at}}</td>
+                                <td class="d-flex justify-content-center">
+                                    <div class="w45">
+                                        <a href="#" class="w-100 btn btn-secondary">
+                                            Detalhes
+                                        </a>
+                                    </div>
+                                    &nbsp;
+                                    <div class="w45">
+                                        <form method="post" action="#">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="submit" value="Excluir" class="w-100 action btn-delete btn btn-danger text-light">
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
+                <nav aria-label="Page navigation" class="pt-3 pb-4">
+                    <ul class="pagination justify-content-center">
+                        @foreach ($orders['links'] as $link)
+                            <li class="page-item">
+                                <a class="page-link" href="{{$link['url']}}">
+                                    {{ html_entity_decode($link['label']); }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </nav>
+                    @else
+                        <div class="col-md-12">
+                            @if ( Auth::user()->user_type_id === 3 )
+                                <h4>Nenhum pedido feito</h4>
+                            @else
+                                <h4>Nenhuma venda realizada</h4>
+                            @endif
+                        </div>
+                    @endif
             </div>
         </div>
     </div>
 </div>
 @endsection
-
-
-<script>
-    function cart(id, name, price, stock) {
-        price = +price;
-        let cart = document.getElementById('cart');
-        cart.style.display = 'block';
-        let button = document.getElementById(id);
-        let prod_stock = document.getElementById(name);
-        let counter = document.getElementById('counter_'+id);
-        let subtotal = document.getElementById('subtotal');
-        let description = document.getElementById('description');
-        if (button.id === id) {
-            counter.value++
-            prod_stock.value--;
-            subtotal.value = +subtotal.value + price;
-            if (prod_stock.value == 0) {
-                button.disabled = true;
-            } else {
-                button.disabled = false;
-            }
-        }
-        subtotal = +subtotal.value;
-        let html = '';
-        let total = '';
-        let calc = counter.value * price;
-        html += '<table class="pb-2" style="border-collapse: separate; border-spacing: 2px">';
-        html += '<tr class="fs-6" id="item_'+id+'">';
-        html += '<td class="w35">'+name+'</td>';
-        html += '<td class="w30">'+price.toLocaleString("pt-BR", {style:"currency", currency:"BRL"})+'</td>';
-        html += '<td class="w5 text-center">'+counter.value+'x</td>';
-        html += '<td class="w30">&nbsp; R$ '+calc.toLocaleString("pt-BR", {style:"currency", currency:"BRL"})+'</td>';
-        html += '<input type="hidden" class="form-control" name="id[]" value="'+id+'" required>';
-        html += '<input type="hidden" class="form-control" name="name[]" value="'+name+'" required>';
-        html += '<input type="hidden" class="form-control" name="name[]" value="'+counter.value+'" required>';
-        html += '<input type="hidden" class="form-control" name="price[]" value="'+price+'" required>';
-        html += '</tr>'
-        html += '</table>';
-
-        total += '<table class="pb-4">';
-        total += '<tr class="fs-6">';
-        total += '<td class="w40 fs-4">TOTAL</td>';
-        total += '<td class="w60 text-center fs-4">'+subtotal.toLocaleString("pt-BR", {style:"currency", currency:"BRL"})+'</td>';
-        total += '</tr>';
-        total += '</table>';
-        let item_id = document.getElementById('item_'+id);
-        let total_element = document.getElementById('total');
-
-        total_element.innerHTML = total;
-        item_id.innerHTML = html;
-    }
-</script>
-

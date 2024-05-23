@@ -1,7 +1,6 @@
 [
     {
         "name": "Geladeira",
-        "description": "Geladeira de alta qualidade fabricado para atender aos clientes mais exigentes",
         "price": "2999.99",
         "stock": 5,
         "available": true,
@@ -9,7 +8,6 @@
     },
     {
         "name": "Fogão",
-        "description": "Fogão de alta qualidade fabricado para atender aos clientes mais exigentes",
         "price": "699.99",
         "stock": 5,
         "available": true,
@@ -17,7 +15,6 @@
     },
     {
         "name": "Gelagua",
-        "description": "Gelagua de alta qualidade fabricado para atender aos clientes mais exigentes",
         "price": "549.99",
         "stock": 3,
         "available": true,
@@ -25,7 +22,6 @@
     },
     {
         "name": "Roteador",
-        "description": "Roteador de alta qualidade fabricado para atender aos clientes mais exigentes",
         "price": "359.99",
         "stock": 6,
         "available": true,
@@ -33,7 +29,6 @@
     },
     {
         "name": "Computador",
-        "description": "Computador de alta qualidade fabricado para atender aos clientes mais exigentes",
         "price": "2999.99",
         "stock": 2,
         "available": true,
@@ -41,7 +36,6 @@
     },
     {
         "name": "Tênis Nike",
-        "description": "Capacete de alta qualidade fabricado para atender aos clientes mais exigentes",
         "price": "199.99",
         "stock": 1,
         "available": true,
@@ -49,7 +43,6 @@
     },
     {
         "name": "Câmera de Segurança",
-        "description": "Câmera de segurança de alta qualidade fabricado para atender aos clientes mais exigentes",
         "price": "179.99",
         "stock": 4,
         "available": true,
@@ -57,7 +50,6 @@
     },
     {
         "name": "Caixa de Som Portátil",
-        "description": "Caixa de som portátil de alta qualidade fabricado para atender aos clientes mais exigentes",
         "price": "899.99",
         "stock": 8,
         "available": true,

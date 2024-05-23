@@ -28,11 +28,7 @@ class ProductsController extends Controller
     public function index(Request $request)
     {
         $products = ProductResource::collection(
-                    Product::searchOrFilter(
-                        $request->only([
-                            'search',
-                            'order_by',
-                        ]))->orderBy('id', 'asc')->get()
+                    Product::all()->sortDesc()
                 )->paginate(6);
         return view('products.index', compact('products'));
     }

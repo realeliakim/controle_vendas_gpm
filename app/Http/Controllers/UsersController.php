@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class UsersController extends Controller
 {
@@ -29,11 +31,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $users = UserResource::collection(
-                    User::searchOrFilter(
-                        $request->only([
-                            'search',
-                            'order_by',
-                        ]))->orderBy('id', 'asc')->get()
+                    User::all()->sortDesc()
                 )->paginate(6);
         return view('users.index', compact('users'));
     }
@@ -56,7 +54,13 @@ class UsersController extends Controller
     public function create(CreateUserRequest $request)
     {
         try {
-            $user = User::create($request->all());
+            $cpf = $request['cpf'];
+            $email = $request['email'];
+            $userExist = DB::select("CALL check_user_cpf_and_email($cpf, $email)");
+            if ($userExist) {
+                throw new BadRequestException("Usuário já cadastrado no sistema", 400);
+            }
+            $user = User::create($request->validated());
             return redirect()->to(route('users'))->with('success', 'Usuário '. $user->name .' criado com sucesso');
         } catch (\Exception $e) {
             $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;

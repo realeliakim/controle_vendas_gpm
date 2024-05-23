@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
-    use HasFactory, Notifiable, Filterable;
+    use HasFactory, Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -18,54 +19,43 @@ class Order extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'product_id',
-        'user_id',
-        'product_qnty',
-        'price_unit',
-        'total',
+        'saler_id',
+        'customer_id',
     ];
 
 
     /**
-     * The attributes that are searchables.
-     *
-     * @var array<int, string>
-     */
-    protected $searchable = [
-        'user_id.name',
-        'product_id.name',
-    ];
-
-
-    /**
-     * The attributes that are filterables.
-     *
-     * @var array<int, string>
-     */
-    protected $filterable = [
-        'user_id.name',
-        'product_id.name',
-    ];
-
-
-    /**
-    * Get the users from orders
+    * Get the saler from orders
     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-    public function users(): BelongsTo
+    public function saler(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
 
     /**
-    * Get the products from orders
+    * Get the customer from orders
     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
     */
-    public function products(): BelongsTo
+    public function customer(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the products from orders
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function products(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'order_products')
+            ->as('products')
+            ->withPivot(
+                'price_saled',
+                'qnty_saled',
+            )
+            ->withTimestamps();
+    }
 
 }
