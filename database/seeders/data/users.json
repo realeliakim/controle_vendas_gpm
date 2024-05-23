@@ -1,19 +1,19 @@
 [
     {
-        "name": "Admin",
+        "name": "Administrador",
         "email": "admin@gmail.com",
         "cpf": "423.198.520-00",
         "user_type_id": 1,
         "section_id": 1,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "Francisco das Chagas",
         "email": "francisco@gmail.com",
         "cpf": "870.663.900-32",
-        "user_type_id": 2,
-        "section_id": 2,
-        "password": "12345678"
+        "user_type_id": 3,
+        "section_id": 1,
+        "password": "123456"
     },
     {
         "name": "Maria das Dores",
@@ -21,7 +21,7 @@
         "cpf": "786.680.620-93",
         "user_type_id": 2,
         "section_id": 3,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "José de Arimateia",
@@ -29,23 +29,23 @@
         "cpf": "453.229.590-41",
         "user_type_id": 2,
         "section_id": 5,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "Boanerges Filho",
         "email": "boanerges@gmail.com",
         "cpf": "176.413.070-78",
-        "user_type_id": 2,
-        "section_id": 3,
-        "password": "12345678"
+        "user_type_id": 3,
+        "section_id": 1,
+        "password": "123456"
     },
     {
         "name": "Serena Joy",
         "email": "serena@gmail.com",
         "cpf": "429.059.820-04",
-        "user_type_id": 2,
-        "section_id": 4,
-        "password": "12345678"
+        "user_type_id": 3,
+        "section_id": 1,
+        "password": "123456"
     },
     {
         "name": "Laura Bethany",
@@ -53,7 +53,7 @@
         "cpf": "301.044.170-30",
         "user_type_id": 2,
         "section_id": 3,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "Eliakim Aquino",
@@ -61,7 +61,7 @@
         "cpf": "635.034.200-37",
         "user_type_id": 1,
         "section_id": 1,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "Magno Cabral",
@@ -69,7 +69,7 @@
         "cpf": "466.912.190-15",
         "user_type_id": 2,
         "section_id": 5,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "Bruno Padilha",
@@ -77,15 +77,15 @@
         "cpf": "475.565.270-77",
         "user_type_id": 2,
         "section_id": 4,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "Samara Salene",
         "email": "samara@gmail.com",
         "cpf": "841.773.840-11",
-        "user_type_id": 2,
-        "section_id": 2,
-        "password": "12345678"
+        "user_type_id": 1,
+        "section_id": 3,
+        "password": "123456"
     },
     {
         "name": "Ana Lopes",
@@ -93,15 +93,15 @@
         "cpf": "155.294.680-04",
         "user_type_id": 2,
         "section_id": 3,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "Hitalo Oliveira",
         "email": "hitalo@gmail.com",
         "cpf": "489.935.890-38",
-        "user_type_id": 2,
-        "section_id": 3,
-        "password": "12345678"
+        "user_type_id": 3,
+        "section_id": 1,
+        "password": "123456"
     },
     {
         "name": "Petrus Nogueira",
@@ -109,7 +109,7 @@
         "cpf": "385.726.100-57",
         "user_type_id": 1,
         "section_id": 1,
-        "password": "12345678"
+        "password": "123456"
     },
     {
         "name": "Caique Mendes",
@@ -117,6 +117,6 @@
         "cpf": "502.241.060-58",
         "user_type_id": 1,
         "section_id": 1,
-        "password": "12345678"
+        "password": "123456"
     }
 ]

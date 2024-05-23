@@ -16,22 +16,22 @@
                     <div class="text-center">
                         <div class="row mb-3" style="padding: 2%">
                             <div class="col-md-3">
-                                <a href="{{ url('/users') }}" class="size-100 btn btn-lg btn-outline-primary">
+                                <a href="{{ url('/users') }}" class="w100 btn btn-lg btn-outline-primary">
                                     Usuários
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <a href="{{ url('/products') }}" class="size-100 btn btn-lg btn-outline-secondary">
+                                <a href="{{ url('/products') }}" class="w100 btn btn-lg btn-outline-secondary">
                                     Produtos
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <a href="{{ url('/orders') }}" class="size-100 btn btn-lg btn-outline-success">
+                                <a href="{{ url('/orders') }}" class="w100 btn btn-lg btn-outline-success">
                                     Vendas
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <a href="{{ url('/home') }}" class="size-100 btn btn-lg btn-outline-info">
+                                <a href="{{ url('/home') }}" class="w100 btn btn-lg btn-outline-info">
                                     Relatório
                                 </a>
                             </div>

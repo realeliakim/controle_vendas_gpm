@@ -137,6 +137,10 @@ body {
     width: 25%;
 }
 
+.w28 {
+    width: 28%;
+}
+
 .w30 {
     width: 30%;
 }
@@ -169,7 +173,7 @@ body {
     width: 65%;
 }
 
-.size-100 {
+.w100 {
     width: 100%;
 }
 

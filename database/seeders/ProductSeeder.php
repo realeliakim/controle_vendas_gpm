@@ -20,7 +20,6 @@ class ProductSeeder extends Seeder
             foreach ($products as $product) {
                 Product::create([
                     'name'        => $product['name'],
-                    'description' => $product['description'],
                     'price'       => $product['price'],
                     'stock'       => $product['stock'],
                     'available'   => $product['available'],

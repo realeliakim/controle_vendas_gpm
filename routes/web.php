@@ -16,18 +16,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-/*
-Route::prefix('/users')
-    ->controller(UsersController::class)
-    ->group(function () {
-        Route::get('/', 'index')->name('users');
-        Route::get('/user_form', 'showCreateForm')->name('users.user_form');
-        Route::post('/create', 'create')->name('users.create');
-        //Route::get('/{user}', 'view')->name('users.view');
-        //Route::update('/{user}', 'update')->name('users.update');
-        Route::delete('/{user}', 'delete')->name('users.delete');
-    });
-*/
+
 Route::prefix('/user_types')
     ->controller(UserTypesController::class)
     ->group(function () {
@@ -40,6 +29,29 @@ Route::prefix('/sections')
         Route::get('/', 'index')->name('sections');
     });
 
+Route::prefix('/users')
+    ->controller(UsersController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('users');
+        Route::get('/user_form', 'showCreateForm')->name('users.user_form');
+        Route::post('/', 'create')->name('users.create');
+        Route::get('/{user}', 'view')->name('users.view');
+        Route::put('/{user}', 'update')->name('users.update');
+        Route::delete('/{user}', 'delete')->name('users.delete');
+    });
+
+Route::prefix('/products')
+    ->controller(ProductsController::class)
+    ->group(function () {
+        Route::get('/', 'index')->name('products');
+        Route::get('/product_form', 'showCreateForm')->name('products.product_form');
+        Route::post('/', 'create')->name('products.create');
+        Route::get('/{product}', 'view')->name('products.view');
+        Route::put('/{product}', 'update')->name('products.update');
+        Route::delete('/{product}', 'delete')->name('products.delete');
+    });
+
+/*
 Route::get('/users', [UsersController::class, 'index'])->name('users');
 Route::get('/users/user_form', [UsersController::class, 'showCreateForm'])->name('users.user_form');
 Route::post('/users', [UsersController::class, 'create'])->name('users.create');
@@ -54,8 +66,11 @@ Route::get('/products/{product}', [ProductsController::class, 'view'])->name('pr
 Route::put('/products/{product}', [ProductsController::class, 'update'])->name('products.update');
 Route::delete('/products/{products}', [ProductsController::class, 'delete'])->name('products.delete');
 
+*/
 Route::get('/orders', [OrdersController::class, 'index'])->name('orders');
-Route::get('/orders/products', [OrdersController::class, 'getProductsBySection'])->name('orders.products');
+Route::get('/orders/show_store', [OrdersController::class, 'showStore'])->name('orders.show_store');
+Route::get('/orders/get_orders/{user}', [OrdersController::class, 'getOrders'])->name('orders.get_orders');
+Route::post('/orders', [OrdersController::class, 'create'])->name('orders.create');
 /*
 Route::get('/users/user_form', [UsersController::class, 'showCreateForm'])->name('users.user_form');
 Route::post('/users/create', [UsersController::class, 'create'])->name('users.create');
