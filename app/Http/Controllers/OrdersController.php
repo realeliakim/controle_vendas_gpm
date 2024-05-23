@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\CreateProductRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\DB;
 
-class ProductsController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -25,8 +27,13 @@ class ProductsController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index()
     {
+        $section_id = Auth::user()->section_id;
+        $products = DB::select("CALL get_product_by_section($section_id)");
+
+        return view('orders.index', compact('products'));
+        /*
         $products = ProductResource::collection(
                     Product::searchOrFilter(
                         $request->only([
@@ -35,6 +42,7 @@ class ProductsController extends Controller
                         ]))->orderBy('id', 'asc')->get()
                 )->paginate(6);
         return view('products.index', compact('products'));
+        */
     }
 
     /**
@@ -141,5 +149,12 @@ class ProductsController extends Controller
             $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
             return response()->apiException($e->getMessage(), $status_code);
         }
+    }
+
+    public function getProductsBySection() {
+        $section_id = Auth::user()->section_id;
+        $products = DB::select("CALL get_product_by_section('.$section_id.')");
+
+        return view('orders.index', compact('products'));
     }
 }

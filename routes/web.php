@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProductsController;
-use App\Http\Controllers\SectionsController;
+use App\Models\Section;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\SectionsController;
 use App\Http\Controllers\UserTypesController;
-use App\Models\Section;
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,6 +53,9 @@ Route::post('/products', [ProductsController::class, 'create'])->name('products.
 Route::get('/products/{product}', [ProductsController::class, 'view'])->name('products.view');
 Route::put('/products/{product}', [ProductsController::class, 'update'])->name('products.update');
 Route::delete('/products/{products}', [ProductsController::class, 'delete'])->name('products.delete');
+
+Route::get('/orders', [OrdersController::class, 'index'])->name('orders');
+Route::get('/orders/products', [OrdersController::class, 'getProductsBySection'])->name('orders.products');
 /*
 Route::get('/users/user_form', [UsersController::class, 'showCreateForm'])->name('users.user_form');
 Route::post('/users/create', [UsersController::class, 'create'])->name('users.create');

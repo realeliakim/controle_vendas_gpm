@@ -8,9 +8,11 @@
                 <div class="card-header d-flex justify-content-between">
                     <div>{{ __('Usuários') }}</div>
                     <div>
-                        <a href="{{ route('users.user_form') }}" class="size-100 btn btn-success">
-                            + Criar Usuário
-                        </a>
+                        @if( Auth::user()->user_type_id === 1 )
+                            <a href="{{ route('users.user_form') }}" class="size-100 btn btn-success">
+                                + Criar Usuário
+                            </a>
+                        @endif
                     </div>
                 </div>
 

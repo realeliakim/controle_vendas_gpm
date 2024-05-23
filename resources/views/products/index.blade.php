@@ -8,9 +8,11 @@
                 <div class="card-header d-flex justify-content-between">
                     <div>{{ __('Produtos') }}</div>
                     <div>
-                        <a href="{{ route('products.product_form') }}" class="size-100 btn btn-success">
-                            + Criar Produto
-                        </a>
+                        @if( Auth::user()->user_type_id === 1 )
+                            <a href="{{ route('products.product_form') }}" class="size-100 btn btn-success">
+                                + Criar Produto
+                            </a>
+                        @endif
                     </div>
                 </div>
 
@@ -38,7 +40,7 @@
                             <tr>
                                 <td class="text-center">{{$product->id}}</td>
                                 <td>{{$product->name}}</td>
-                                <td>R$ {{ number_format($product->price, 2, ',','.') }}</td>
+                                <td>R$ {{ $product->price_format($product->price) }}</td>
                                 <td class="text-center">{{$product->stock}}</td>
                                 <td class="text-center">{{$product->section->name}}</td>
                                 <td class="text-center">{{$product->created_at}}</td>

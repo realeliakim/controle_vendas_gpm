@@ -13,11 +13,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <div style="text-align: center">
-                        <div class="row mb-3" style="padding: 0 12%">
+                    <div class="text-center">
+                        <div class="row mb-3" style="padding: 2%">
                             <div class="col-md-3">
                                 <a href="{{ url('/users') }}" class="size-100 btn btn-lg btn-outline-primary">
-                                    Usuário
+                                    Usuários
                                 </a>
                             </div>
                             <div class="col-md-3">
@@ -26,10 +26,14 @@
                                 </a>
                             </div>
                             <div class="col-md-3">
-                                <button type="button" class="size-100 btn btn-lg btn-outline-success">Venda</button>
+                                <a href="{{ url('/orders') }}" class="size-100 btn btn-lg btn-outline-success">
+                                    Vendas
+                                </a>
                             </div>
                             <div class="col-md-3">
-                                <button type="button" class="btn btn-lg btn-outline-info" style="width: 100%">Info</button>
+                                <a href="{{ url('/home') }}" class="size-100 btn btn-lg btn-outline-info">
+                                    Relatório
+                                </a>
                             </div>
                         </div>
                     </div>

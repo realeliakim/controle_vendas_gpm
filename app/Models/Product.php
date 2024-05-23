@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Scopes\Filterable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -59,5 +60,14 @@ class Product extends Model
     public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
+    }
+
+    /**
+    * format price
+    *
+    */
+    public function price_format($price): String
+    {
+        return number_format($price, 2, ',', '.');
     }
 }

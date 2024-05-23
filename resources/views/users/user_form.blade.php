@@ -44,7 +44,7 @@
                     <div class="form-group row mb-6">
                         <div class="col-md-4 mb-3">
                             <label for="cpf" class="form-label">CPF<span class="red">*</span>: </label>
-                            <input id="cpf" type="text" class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="{{ old('cpf') }}" placeholder="000.000.000-00" required autocomplete="" autofocus>
+                            <input id="cpf" type="text" class="form-control @error('cpf') is-invalid @enderror" name="cpf" value="" placeholder="000.000.000-00" maxlength="14" required autocomplete="" autofocus>
                             @error('cpf')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
