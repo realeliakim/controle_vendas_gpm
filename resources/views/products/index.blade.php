@@ -32,7 +32,7 @@
                                 <th class="w-10 text-center">ESTOQUE</th>
                                 <th class="w-15 text-center">DEPARTAMENTO</th>
                                 <th class="w-10 text-center">DATA DE CRIAÇÃO</th>
-                                <th class="w-15 text-center">AÇÕES</th>
+                                <th class="w-20 text-center">AÇÕES</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,19 +45,21 @@
                                 <td class="text-center">{{$product->section->name}}</td>
                                 <td class="text-center">{{$product->created_at}}</td>
                                 <td class="d-flex justify-content-center">
-                                    <div class="w45">
+                                    <div class="w100">
                                         <a href="{{ route('products.view', $product->id) }}" class="w-100 btn btn-primary">
                                             Editar
                                         </a>
                                     </div>
                                     &nbsp;
-                                    <div class="w45">
+                                    @if( Auth::user()->user_type_id === 1 )
+                                    <div class="w100">
                                         <form method="post" action="{{ route('products.delete', $product->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" value="Excluir" class="w-100 action btn-delete btn btn-danger text-light">
                                         </form>
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

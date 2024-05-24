@@ -61,19 +61,21 @@
                                 <td>{{ $order->customer->name }}</td>
                                 <td class="text-center">{{ date("d/m/Y", strtotime($order->created_at))}}</td>
                                 <td class="d-flex justify-content-center">
-                                    <div class="w45">
-                                        <a href="{{ route('orders.view', $order->id) }}" class="w-100 btn btn-secondary">
-                                            Detalhes
-                                        </a>
+                                    <div class="w100">
+                                    <a href="{{ route('orders.view', $order->id) }}" class="w-100 btn btn-secondary">
+                                        Detalhes
+                                    </a>
                                     </div>
                                     &nbsp;
-                                    <div class="w45">
+                                    @if( Auth::user()->user_type_id === 1 )
+                                    <div class="w100">
                                         <form method="post" action="{{ route('orders.delete', $order->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" value="Excluir" class="w-100 action btn-delete btn btn-danger text-light">
                                         </form>
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

@@ -48,19 +48,21 @@
                                 <td class="text-center">{{$user->section->name}}</td>
                                 <td class="text-center">{{$user->created_at}}</td>
                                 <td class="d-flex justify-content-center">
-                                    <div class="w45">
+                                    <div class="w100">
                                         <a href="{{ route('users.view', $user->id) }}" class="w-100 btn btn-primary">
                                             Editar
                                         </a>
                                     </div>
                                     &nbsp;
-                                    <div class="w45">
+                                    @if( Auth::user()->user_type_id === 1 )
+                                    <div class="w100">
                                         <form method="post" action="{{ route('users.delete', $user->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" value="Excluir" class="w-100 action btn-delete btn btn-danger text-light">
                                         </form>
                                     </div>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
