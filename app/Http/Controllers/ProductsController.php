@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\StockReport;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Http\Requests\CreateProductRequest;
@@ -103,6 +104,24 @@ class ProductsController extends Controller
                 throw new ModelNotFoundException('Produto não encontrado', 404);
             }
             $data = $request->validated();
+
+            if ($product->stock !== $data['stock']) {
+                if ($data['stock'] > $product->stock) {
+                    $stock = $data['stock'] - $product->stock;
+                    StockReport::create([
+                        'action' => 'Estoque atualizado.',
+                        'reaction' => '+'.$stock,
+                        'product_id' => $product->id,
+                    ]);
+                } else {
+                    $stock = $data['stock'] - $product->stock;
+                    StockReport::create([
+                        'action' => 'Estoque atualizado.',
+                        'reaction' => '-'.$stock,
+                        'product_id' => $product->id,
+                    ]);
+                }
+            }
 
             if ($data['stock'] === '0') {
                 $data['available'] = false;

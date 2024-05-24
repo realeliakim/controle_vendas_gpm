@@ -21,15 +21,18 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @if (count($orders['data']) > 0 )
+
                     @if( Auth::user()->user_type_id === 1 )
-                        <form method="POST" action="{{ route('users.create') }}" class="pt-4 pb-4">
+                        <form method="POST" action="{{ route('orders.get_orders') }}" class="pt-4 pb-4">
                             @csrf
                             <div class="form-group row">
                                 <div class="row col-md-6 mb-3">
                                     <div class="col-md-8 mb-3">
                                         <select class="form-select" id="search" name="user_id">
                                             <option value=""></option>
+                                            @foreach ($salers as $saler)
+                                                <option value="{{ $saler->id }}">{{ $saler->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
@@ -39,7 +42,7 @@
                             </div>
                         </form>
                     @endif
-
+                    @if (count($orders['data']) > 0 )
                     <table class="table table-striped table-hover table-bordered">
                         <thead>
                             <tr>
@@ -59,13 +62,13 @@
                                 <td class="text-center">{{$order->created_at}}</td>
                                 <td class="d-flex justify-content-center">
                                     <div class="w45">
-                                        <a href="#" class="w-100 btn btn-secondary">
+                                        <a href="{{ route('orders.view', $order->id) }}" class="w-100 btn btn-secondary">
                                             Detalhes
                                         </a>
                                     </div>
                                     &nbsp;
                                     <div class="w45">
-                                        <form method="post" action="#">
+                                        <form method="post" action="{{ route('orders.delete', $order->id) }}">
                                             @csrf
                                             @method('DELETE')
                                             <input type="submit" value="Excluir" class="w-100 action btn-delete btn btn-danger text-light">

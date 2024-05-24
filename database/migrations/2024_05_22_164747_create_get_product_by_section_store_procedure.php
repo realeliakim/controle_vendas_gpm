@@ -11,12 +11,12 @@ return new class extends Migration
     public function up(): void
     {
         $store_procedure = "DROP PROCEDURE IF EXISTS `get_product_by_section`;
-            CREATE PROCEDURE `get_product_by_section` (IN idx int)
+            CREATE PROCEDURE `get_product_by_section` (IN id int)
             BEGIN
-                IF idx = 1 THEN
+                IF id = 1 THEN
                     SELECT * FROM products WHERE available = true;
                 ELSE
-                    SELECT * FROM products WHERE section_id = idx AND available = true;
+                    SELECT * FROM products WHERE section_id = id AND available = true;
                 END IF;
             END;";
         DB::unprepared($store_procedure);

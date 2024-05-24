@@ -41,18 +41,6 @@
                         </div>
                     </div>
                     <br />
-                    <div class="form-group row mb-6">
-                        <div class="col-md-12 mb-3">
-                            <label for="description" class="form-label">Descrição<span class="red">*</span>: </label>
-                            <textarea id="description" class="form-control @error('description') is-invalid @enderror" name="description" rows="3" value="{{ $product->description }}" required autocomplete="" autofocus>{{ $product->description }}</textarea>
-                            @error('description')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-                    <br />
                     <div class="form-group row">
                         <div class="col-md-6 mb-3">
                             <label for="stock" class="form-label">Estoque<span class="red">*</span>: </label>

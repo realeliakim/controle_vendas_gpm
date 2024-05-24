@@ -5,13 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\StockReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\OrderResource;
-use App\Http\Resources\ProductResource;
 use App\Http\Requests\CreateOrderRequest;
-use App\Http\Requests\CreateProductRequest;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
@@ -27,15 +26,15 @@ class OrdersController extends Controller
         $this->middleware('auth');
     }
 
-
     /**
-     * Show the products list.
+     * Show the orders list.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index($user_id = null)
     {
         $user = User::find(Auth::user()->id);
+        $salers = DB::select("CALL get_saler_list()");
         $orders = '';
         switch($user->user_type_id) {
             case 1:
@@ -55,71 +54,24 @@ class OrdersController extends Controller
                 break;
         }
 
-        return view('orders.index', compact('orders'));
-
-        //return view('orders.index');
-        //$data = Order::all();
-        //$orders = OrderResource::collection($data);
-        //return response()->json($orders);
-        //$p = $orders->products;
-        //return $collection;
-        //$orders = json_decode($collection);
-        /*OrderResource::collection(
-                    Order::searchOrFilter(
-                        $request->only([
-                            'search'
-                        ]))->orderBy('id', 'desc')->get()
-                )->paginate(6);*/
-
-
+        return view('orders.index', compact('orders', 'salers'));
     }
 
 
     /**
-     * Show the products list.
+     * Orders filter.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function getOrders(int $user_id)
+    public function getOrders(Request $request)
     {
-        $user = User::find($user_id);
-        if ($user->user_type_id === 1) {
-            return OrderResource::collection(
-                Order::all()->sortDesc()
-            )->paginate();
-        }
-
-        if ($user->user_type_id === 2) {
-            return OrderResource::collection(
-                Order::where('saler_id', $user->id)->get()
-            )->paginate(6);
-        }
-
-        if ($user->user_type_id === 3) {
-            return OrderResource::collection(
-                Order::where('customer_id', $user->id)->get()
-            )->paginate(6);
-        }
-
-
-        /*$data = Order::all();
-        $orders = OrderResource::collection($data);
-        return response()->json($orders);
-        //$p = $orders->products;
-        //return $collection;
-        //$orders = json_decode($collection);
-        /*OrderResource::collection(
-                    Order::searchOrFilter(
-                        $request->only([
-                            'search'
-                        ]))->orderBy('id', 'desc')->get()
-                )->paginate(6);
-        return view('orders.index', ['orders' => $orders]);
-        */
+        $user = User::find($request['user_id']);
+        $orders = OrderResource::collection(
+            Order::where('saler_id', $user->id)->get()
+        )->paginate(6);
+        $salers = DB::select("CALL get_saler_list()");
+        return view('orders.index', compact('orders', 'salers'));
     }
-
-
-
 
     /**
     * Show products in store.
@@ -175,6 +127,12 @@ class OrdersController extends Controller
                         'stock' => $stock_update,
                         'available' => $available,
                     ]);
+
+                    StockReport::create([
+                        'action' => 'Venda Executada | Pedido id #'.$order->id,
+                        'reaction' => '-'.$data['qnty_saled'][$i],
+                        'product_id' => $product_id,
+                    ]);
                 }
             DB::commit();
             return redirect()->to(route('orders'))->with('success', 'Pedido realizado com sucesso');
@@ -190,45 +148,22 @@ class OrdersController extends Controller
     *
     * @param int $product_id
     */
-    public function view(int $product_id)
+    public function view(int $order_id)
     {
         try {
-            $product = Product::find($product_id);
+            $order = Order::find($order_id);
 
-            if (!$product) {
-                throw new ModelNotFoundException('Usuário não encontrado', 404);
+            if (!$order) {
+                throw new ModelNotFoundException('Pedido não encontrado', 404);
             }
-
-            $product = ProductResource::make($product);
-            return view('products.view', compact('product'));
-        } catch (\Exception $e) {
-            $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
-            return response()->apiException($e->getMessage(), $status_code);
-        }
-    }
-
-    /**
-    * Update an user.
-    * @param   int  $product_id
-    * @param   App\Http\Requests\CreateProductRequest	$request
-    */
-    public function update(CreateProductRequest $request, int $product_id)
-    {
-        try {
-            $product = Product::find($product_id);
-
-            if (!$product) {
-                throw new ModelNotFoundException('Produto não encontrado', 404);
+            $order_details = $order->products;
+            $subtotal = [];
+            foreach ($order_details as $key => $details) {
+                $sub = $details->products->price_saled * $details->products->qnty_saled;
+                array_push($subtotal, $sub);
             }
-            $data = $request->validated();
-
-            if ($data['stock'] === '0') {
-                $data['available'] = false;
-            }
-            $data['price'] = str_replace(".","", $data['price']);
-            $data['price'] = str_replace(",",".", $data['price']);
-            $product->update($data);
-            return redirect()->to(route('products'))->with('success', 'Produto '. $product->name .' atualizado com sucesso');
+            $total = array_sum($subtotal);
+            return view('orders.view', compact('order_details', 'total'));
         } catch (\Exception $e) {
             $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
             return response()->apiException($e->getMessage(), $status_code);
@@ -240,18 +175,38 @@ class OrdersController extends Controller
     *
     * @param  int $product_id
     */
-    public function delete(int $product_id)
+    public function delete(int $order_id)
     {
         try {
-            $product = Product::find($product_id);
+            $order = Order::find($order_id);
 
-            if (!$product) {
-                throw new ModelNotFoundException('Produto com id #'.$product_id. ' não encontrado', 404);
+            if (!$order) {
+                throw new ModelNotFoundException('Pedido com id #'.$order_id. ' não encontrado', 404);
             }
 
-            $product->delete();
-            return redirect()->to(route('products'))->with('success', 'Produto '. $product_id .' deletado com sucesso');
+            $products = $order->products;
+            DB::beginTransaction();
+                $order->products()->detach();
+                foreach ($products as $product) {
+                    $product_id = $product->id;
+                    $in_stock = $product->products->qnty_saled;
+                    $prod_table = Product::find($product_id);
+                    $stock_in_base = $prod_table->stock;
+                    $prod_table->update([
+                        'stock' => $stock_in_base + $in_stock,
+                        'available' => true,
+                    ]);
+                    StockReport::create([
+                        'action' => 'Venda Cancelada | Pedido id #'.$order_id,
+                        'reaction' => '+'.$in_stock,
+                        'product_id' => $product_id,
+                    ]);
+                }
+                $order->delete();
+            DB::commit();
+            return redirect()->to(route('orders'))->with('success', 'Pedido '. $order_id .' deletado com sucesso');
         } catch (\Exception $e) {
+            DB::rollBack();
             $status_code = is_integer($e->getCode()) ? $e->getCode() : 500;
             return response()->apiException($e->getMessage(), $status_code);
         }
