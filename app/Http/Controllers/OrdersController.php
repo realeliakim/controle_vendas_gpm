@@ -146,7 +146,7 @@ class OrdersController extends Controller
     /**
     * View a product.
     *
-    * @param int $product_id
+    * @param int $order_id
     */
     public function view(int $order_id)
     {

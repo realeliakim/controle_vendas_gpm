@@ -25,7 +25,6 @@ class CreateProductRequest extends FormRequest
     {
         return [
             'name'         => ['required', 'string', 'max:200'],
-            'description'  => ['required'],
             'price'        => ['required', 'min:0'],
             'stock'        => ['required', 'integer', 'min:0'],
             'section_id'   => ['required', 'integer', new ModelExists(Section::class, 'id')],

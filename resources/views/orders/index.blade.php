@@ -36,7 +36,7 @@
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <button type="submit" class="btn btn-primary w100">Filtar Vendedor</button>
+                                        <input type="submit" class="btn btn-primary w100" value="Filtar Vendedor">
                                     </div>
                                 </div>
                             </div>
@@ -59,7 +59,7 @@
                                 <td class="text-center">{{$order->id}}</td>
                                 <td>{{ $order->saler->name}}</td>
                                 <td>{{ $order->customer->name }}</td>
-                                <td class="text-center">{{$order->created_at}}</td>
+                                <td class="text-center">{{ date("d/m/Y", strtotime($order->created_at))}}</td>
                                 <td class="d-flex justify-content-center">
                                     <div class="w45">
                                         <a href="{{ route('orders.view', $order->id) }}" class="w-100 btn btn-secondary">
