@@ -1,14 +1,13 @@
 <?php
 
-use App\Models\Section;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SectionsController;
-use App\Http\Controllers\StockReportsController;
 use App\Http\Controllers\UserTypesController;
+use App\Http\Controllers\StockReportsController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -52,57 +51,19 @@ Route::prefix('/products')
         Route::delete('/{product}', 'delete')->name('products.delete');
     });
 
-/*
-Route::get('/users', [UsersController::class, 'index'])->name('users');
-Route::get('/users/user_form', [UsersController::class, 'showCreateForm'])->name('users.user_form');
-Route::post('/users', [UsersController::class, 'create'])->name('users.create');
-Route::get('/users/{user}', [UsersController::class, 'view'])->name('users.view');
-Route::put('/users/{user}', [UsersController::class, 'update'])->name('users.update');
-Route::delete('/users/{user}', [UsersController::class, 'delete'])->name('users.delete');
-
-Route::get('/products', [ProductsController::class, 'index'])->name('products');
-Route::get('/products/product_form', [ProductsController::class, 'showCreateForm'])->name('products.product_form');
-Route::post('/products', [ProductsController::class, 'create'])->name('products.create');
-Route::get('/products/{product}', [ProductsController::class, 'view'])->name('products.view');
-Route::put('/products/{product}', [ProductsController::class, 'update'])->name('products.update');
-Route::delete('/products/{products}', [ProductsController::class, 'delete'])->name('products.delete');
-
-*/
-Route::get('/orders', [OrdersController::class, 'index'])->name('orders');
-Route::post('/orders/get_orders', [OrdersController::class, 'getOrders'])->name('orders.get_orders');
-Route::get('/orders/show_store', [OrdersController::class, 'showStore'])->name('orders.show_store');
-Route::post('/orders', [OrdersController::class, 'create'])->name('orders.create');
-Route::get('/orders/{user}', [OrdersController::class, 'view'])->name('orders.view');
-Route::delete('/orders/{user}', [OrdersController::class, 'delete'])->name('orders.delete');
-
-
-Route::get('/reports', [StockReportsController::class, 'index'])->name('reports');
-/*
-
-
-
-/*
-
-Route::prefix('/users')
-    ->controller(UsersController::class)
-    ->group(function () {
-        Route::get('/', 'index')->name('users');
-        Route::get('/user_form', 'showCreateForm')->name('users.user_form');
-        Route::post('/create', 'create')->name('users.create');
-        Route::get('/view/{user}', 'view')->name('users.view');
-        Route::update('/update/{user}', 'update')->name('users.update');
-        Route::delete('/delete/{user}', 'delete')->name('users.delete');
+Route::prefix('/orders')
+    ->controller(OrdersController::class)
+    ->group(function (){
+        Route::get('/', 'index')->name('orders');
+        Route::post('/', 'create')->name('orders.create');
+        Route::post('/get_orders', 'getOrders')->name('orders.get_orders');
+        Route::get('/show_store', 'showStore')->name('orders.show_store');
+        Route::get('/{order}', 'view')->name('orders.view');
+        Route::delete('/{order}', 'delete')->name('orders.delete');
     });
 
-Route::prefix('/products')
-    ->controller(ProductsController::class)
+Route::prefix('/reports')
+    ->controller(StockReportsController::class)
     ->group(function () {
-        Route::get('/', 'index')->name('products.index');
-        Route::get('/product_form', 'showCreateForm')->name('products.product_form');
-        Route::get('/create', 'create')->name('products.create');
-        Route::get('/view/{product}', 'view')->name('products.view');
-        Route::update('/update/{product}', 'update')->name('products.update');
-        Route::delete('/delete/{product}', 'delete')->name('products.delete');
+        Route::get('/', 'index')->name('reports');
     });
-
-*/

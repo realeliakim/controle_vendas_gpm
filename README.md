@@ -14,7 +14,7 @@ $ git clone git@github.com:realeliakim/controle_vendas_gpm.git
 
 #Adicionar dependências
 $ composer intall
-$ npm install && npm run dev
+$ npm install
 
 
 #Executar migrations e seeds
