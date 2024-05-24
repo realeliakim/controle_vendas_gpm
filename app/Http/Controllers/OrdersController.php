@@ -67,8 +67,9 @@ class OrdersController extends Controller
     {
         $user = User::find($request['user_id']);
         $orders = OrderResource::collection(
-            Order::where('saler_id', $user->id)->get()
-        )->paginate(6);
+            $user ? Order::where(
+                'saler_id', $user->id)->get() : Order::all()
+            )->paginate(6);
         $salers = DB::select("CALL get_saler_list()");
         return view('orders.index', compact('orders', 'salers'));
     }
