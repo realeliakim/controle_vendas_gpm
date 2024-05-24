@@ -29,8 +29,9 @@
                                     @foreach ($value['register'] as $register)
                                     <div class="accordion-body">
                                         <div class="row">
-                                            <div class="col-md-7 text-start ps-4">Ação: {{ $register['action'] }}</div>
-                                            <div class="col-md-5 text-start">Resultado: {{ $register['reaction'] }}</div>
+                                            <div class="col-md-6 text-start ps-4">Ação: {{ $register['action'] }}</div>
+                                            <div class="col-md-4 text-start">Resultado: {{ $register['reaction'] }}</div>
+                                            <div class="col-md-2 text-start">Data: {{ $register['date'] }}</div>
                                         </div>
                                     </div>
                                     @endforeach

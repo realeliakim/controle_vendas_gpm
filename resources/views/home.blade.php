@@ -33,7 +33,7 @@
                             @if( Auth::user()->user_type_id === 1 )
                             <div class="col-md-3">
                                 <a href="{{ url('/reports') }}" class="w100 btn btn-lg btn-outline-info">
-                                    Estoque Rep.
+                                    Estoque Relatório
                                 </a>
                             </div>
                             @endif
