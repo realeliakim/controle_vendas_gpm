@@ -54,12 +54,6 @@ class UsersController extends Controller
     public function create(CreateUserRequest $request)
     {
         try {
-            $cpf = $request['cpf'];
-            $email = $request['email'];
-            $userExist = DB::select("CALL check_user_cpf_and_email($cpf, $email)");
-            if ($userExist) {
-                throw new BadRequestException("Usuário já cadastrado no sistema", 400);
-            }
             $user = User::create($request->validated());
             return redirect()->to(route('users'))->with('success', 'Usuário '. $user->name .' criado com sucesso');
         } catch (\Exception $e) {

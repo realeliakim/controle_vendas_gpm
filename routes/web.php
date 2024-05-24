@@ -7,6 +7,7 @@ use App\Http\Controllers\UsersController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\SectionsController;
+use App\Http\Controllers\StockReportsController;
 use App\Http\Controllers\UserTypesController;
 
 Route::get('/', function () {
@@ -68,15 +69,16 @@ Route::delete('/products/{products}', [ProductsController::class, 'delete'])->na
 
 */
 Route::get('/orders', [OrdersController::class, 'index'])->name('orders');
+Route::post('/orders/get_orders', [OrdersController::class, 'getOrders'])->name('orders.get_orders');
 Route::get('/orders/show_store', [OrdersController::class, 'showStore'])->name('orders.show_store');
-Route::get('/orders/get_orders/{user}', [OrdersController::class, 'getOrders'])->name('orders.get_orders');
 Route::post('/orders', [OrdersController::class, 'create'])->name('orders.create');
+Route::get('/orders/{user}', [OrdersController::class, 'view'])->name('orders.view');
+Route::delete('/orders/{user}', [OrdersController::class, 'delete'])->name('orders.delete');
+
+
+Route::get('/reports', [StockReportsController::class, 'index'])->name('reports');
 /*
-Route::get('/users/user_form', [UsersController::class, 'showCreateForm'])->name('users.user_form');
-Route::post('/users/create', [UsersController::class, 'create'])->name('users.create');
-Route::get('/users/view/{user}', [UsersController::class, 'view'])->name('users.view');
-Route::put('/users/update/{user}', [UsersController::class, 'update'])->name('users.update');
-Route::delete('/users/delete/{user}', [UsersController::class, 'delete'])->name('users.delete');
+
 
 
 /*
