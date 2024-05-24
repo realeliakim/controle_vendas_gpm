@@ -43,6 +43,7 @@ class StockReportsController extends Controller
             array_push($data[$value->product_id]['register'], [
                 'action' => $value->action,
                 'reaction' => $value->reaction,
+                'date' => date('d/m/Y', strtotime($value->created_at)),
             ]);
         }
 
